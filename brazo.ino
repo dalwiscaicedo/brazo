@@ -1,54 +1,65 @@
 #include <Servo.h>
-#define pinBase 12
-#define pinDer 11
-#define pinIzq 10
-#define pinMano 9
+Servo servoMotor1;
+Servo servoMotor2;
+Servo servoMotor3;
+Servo servoMotor4;
 
-Servo motorBase;
-Servo motorDer;
-Servo motorIzq;
-Servo motorMano;
+int i=0;
+int angulo1=90,angulo2=90,angulo3=90,angulo4=90;
 
-void setup() {
-
-  motorBase.attach(pinBase);
-  motorBase.write (0);
-  delay (1000);
-  motorBase.write (180);
-  delay (1000);
-  motorBase.write (90);
-  delay (1000);
-  
-  motorDer.attach(pinDer);
-  motorDer.write(0);
-  delay (1000);
-  motorDer.write(130);
-  delay (1000);
-  motorDer.write(90);
-  delay (1000);
-  
-  motorIzq.attach(pinIzq);
-  motorIzq.write(0);
-  delay (1000);
-  motorIzq.write(180);
-  delay (1000);
-  motorIzq.write(90);
-  delay (1000);
-
-  motorMano.attach(pinMano);
-  motorMano.write(0);
-  delay (1000);
-  motorMano.write(180);
-  delay (1000);
-  motorMano.write(90);
-  delay (1000);
-
-  
-
+void setup()
+{
+  Serial.begin(9600);
+  servoMotor1.attach(9);
+  servoMotor2.attach(10);
+  servoMotor3.attach(11);
+  servoMotor4.attach(12);
 }
+ 
+void loop()
+{
 
+  
+  if(Serial.available()>0) 
+  {
+    char dato=Serial.read(); 
+    Serial.println(dato);
+    
+     if(dato=='A'){
+        servoMotor1.write(angulo1);
+        angulo1+=5;
+     }
+     else if(dato=='D'){
+        servoMotor1.write(angulo1);
+        angulo1-=5;
+     }
+          else if(dato=='Z'){
+      servoMotor2.write(angulo2);
+     angulo2+=5;
+     }
+     else if(dato=='X'){
+      servoMotor2.write(angulo2);
+      angulo2-=5;
+     }
+    else if(dato=='W'){
+        servoMotor3.write(angulo3);
+        angulo3+=5;
+     }
+     else if(dato=='S'){
+        servoMotor3.write(angulo3);
+        angulo3-=5;
+     }
+     else if(dato=='L'){
+        servoMotor4.write(angulo4);
+        angulo4+=5;
+     }
+     else if(dato=='R'){
+        servoMotor4.write(angulo4);
+        angulo4-=5;
+     }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-
+  }
 }
+     
+    
+  
